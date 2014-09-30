@@ -47,22 +47,21 @@ public class ITimeTest {
         //Test correct Time object creation
 
         time = new Time(2014, 9, 30, 10, 0);
-        if(time.getYear())
-        //assertNotNull(time);
 
+        assertEquals(2014, time.getYear());
+        assertEquals(9, time.getMonth());
+        assertEquals(30, time.getDay());
+        assertEquals(10, time.getHours());
+        assertEquals(0, time.getMinutes());
 
+        
         //Test false Time object creation
-
-        time = new Time(2014, 14, 30, 10, 27);
-        time = new Time(2014, 9, 35, 10, 27);
-        time = new Time(2014, 9, 30, -12, 27);
-        time = new Time(2014, 9, 30, 10, 800);
-            //assertNull(time);
-
+        time = new Time(2014, 14, 35, 88, 800);
+    
+        assertNotSame(2014, time.getYear());
+        assertNotSame(14, time.getMonth());
+        assertNotSame(35, time.getDay());
+        assertNotSame(88, time.getHours());
+        assertNotSame(800, time.getMinutes());
     }
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }
