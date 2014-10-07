@@ -6,6 +6,7 @@
 package fontys.time;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -17,12 +18,33 @@ public class Time implements ITime {
     public GregorianCalendar calendar;
 
     public Time(int y, int m, int d, int h, int min) {
-//        if((h >= 0) && (h < 24) && (m >= 0) && (m < 59)){
-//            if((m == 1) && (m == 3) && (m == 5) && (m == 7) && (m == 8) && (m == 8) && (m == 10) && (m == 12)){
-//                
-//            }
-//        }
-//        if((m > 0) && (m < 13) && (d > 0) && (d < 32) )
+
+        if ((m < 1) || (m > 12)) {
+            throw new IllegalArgumentException();
+        }
+
+        if ((d < 1) || (d > 31)) {
+            throw new IllegalArgumentException();
+        }
+
+        if ((h < 0) || (h > 23)) {
+            throw new IllegalArgumentException();
+        }
+
+        if ((min < 0) || (min > 59)) {
+            throw new IllegalArgumentException();
+        }
+
+        if ((m == 4) || (m == 6) || (m == 9) || (m == 11)) {
+            if (d > 30) {
+                throw new IllegalArgumentException();
+            }
+        } else if (m == 2) {
+            if (d > 29) {
+                throw new IllegalArgumentException();
+            }
+        }
+
         calendar = new GregorianCalendar(y, m, d, h, min);
 
     }
@@ -51,27 +73,29 @@ public class Time implements ITime {
     public int getMinutes() {
         return calendar.get(Calendar.MINUTE);
     }
-
+    
     @Override
     public DayInWeek getDayInWeek() {
         DayInWeek diwEnum = null;
         int day = calendar.get(Calendar.DAY_OF_WEEK);
-        switch (day) {
-            case 1:
-                diwEnum = DayInWeek.MON;
-            case 2:
-                diwEnum = DayInWeek.TUE;
-            case 3:
-                diwEnum = DayInWeek.WED;
-            case 4:
-                diwEnum = DayInWeek.THU;
-            case 5:
-                diwEnum = DayInWeek.FRI;
-            case 6:
-                diwEnum = DayInWeek.SAT;
-            case 7:
-                diwEnum = DayInWeek.SUN;
-        }
+        System.out.println(day);
+
+        
+        if(day == 1){
+            diwEnum = DayInWeek.SUN;
+        } else if (day == 2){
+            diwEnum = DayInWeek.MON;
+        } else if (day == 3){
+            diwEnum = DayInWeek.TUE;
+        } else if (day == 4){
+            diwEnum = DayInWeek.WED;
+        } else if (day == 5){
+            diwEnum = DayInWeek.THU;
+        } else if (day == 6){
+            diwEnum = DayInWeek.FRI;
+        } else if (day == 7){
+            diwEnum = DayInWeek.SAT;
+        } 
         return diwEnum;
     }
 
@@ -79,23 +103,38 @@ public class Time implements ITime {
     public ITime plus(int minutes) {
         int newMinutes = calendar.get(Calendar.MINUTE);
         newMinutes = newMinutes + minutes;
-        return new Time(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) - 1, calendar.get(Calendar.DAY_OF_YEAR), calendar.get(Calendar.HOUR_OF_DAY), newMinutes);
+        calendar.add(Calendar.MINUTE, minutes);
+        //return new Time(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) - 1, calendar.get(Calendar.DAY_OF_YEAR), calendar.get(Calendar.HOUR_OF_DAY), newMinutes);
+        return this;
     }
 
     @Override
     public int difference(ITime time) {
-//        long diff = calendar.getTime().getTime() - time.calendar.getTime().getTime();
-//        if (diff < 0){
-//            diff = diff + (diff*2);
-//        }
-//        diff = diff / 60000;
-//        return (int) diff;
-        return 0;
+        Time timeObj = (Time) time;
+        long diff = calendar.getTime().getTime() - timeObj.getCalendar().getTime().getTime();
+
+        diff = diff / 60000;
+        int intDiff = (int) diff;
+        if (intDiff < 10) {
+            intDiff = intDiff + (intDiff * -2);
+        }
+        return intDiff;
     }
 
     @Override
     public int compareTo(ITime o) {
-        return 0;
+        Time timeObj = (Time) o;
+        if (calendar.getTime().getTime() < timeObj.getCalendar().getTime().getTime()) {
+            return -1;
+        } else if (calendar.getTime().getTime() == timeObj.getCalendar().getTime().getTime()) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    public GregorianCalendar getCalendar() {
+        return calendar;
     }
 
 }
