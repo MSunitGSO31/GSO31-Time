@@ -55,6 +55,7 @@ public class Period2 implements IPeriod {
     public void setEndTime(ITime newEndTime) {
         if (beginTime.compareTo(newEndTime) == -1) {
             endTime = newEndTime;
+            duration = beginTime.difference(endTime);
         } else {
             throw new IllegalArgumentException("Begin time after End Time!");
         }

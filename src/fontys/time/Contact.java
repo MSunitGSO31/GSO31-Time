@@ -10,7 +10,8 @@ import java.util.Iterator;
 
 /**
  *
- * @author Sam
+ * @author  Specification:   Sam
+ * @author  Implementation:  Martijn
  */
 public class Contact {
 

@@ -20,28 +20,28 @@ public class Time implements ITime {
     public Time(int y, int m, int d, int h, int min) {
 
         if ((m < 1) || (m > 12)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Invalid month");
         }
 
         if ((d < 1) || (d > 31)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Invalid day");
         }
 
         if ((h < 0) || (h > 23)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Invalid hour");
         }
 
         if ((min < 0) || (min > 59)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Invalid minute");
         }
 
         if ((m == 4) || (m == 6) || (m == 9) || (m == 11)) {
             if (d > 30) {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("Invalid combination of y-m-d");
             }
         } else if (m == 2) {
             if (d > 29) {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("Invalid combination of y-m-d (In february)");
             }
         }
 
@@ -101,10 +101,7 @@ public class Time implements ITime {
 
     @Override
     public ITime plus(int minutes) {
-        int newMinutes = calendar.get(Calendar.MINUTE);
-        newMinutes = newMinutes + minutes;
         calendar.add(Calendar.MINUTE, minutes);
-        //return new Time(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) - 1, calendar.get(Calendar.DAY_OF_YEAR), calendar.get(Calendar.HOUR_OF_DAY), newMinutes);
         return this;
     }
 
