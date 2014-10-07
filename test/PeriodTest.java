@@ -33,12 +33,12 @@ public class PeriodTest {
     public void testPeriod()
     {
         // Check lenght difference of 30 minutes.
-        assertEquals(30,period.length());
+        assertEquals("Lenght difference isn't 30 minuntes",30, period.length());
         
         
         Period p = new Period(new Time(2014,1,1,12,00),new Time(2014,1,1,12,40));
         // Union return null
-        assertNull(period.unionWith(p));
+        assertNull("Period is not null",period.unionWith(p));
     }
     
     @Test
@@ -48,7 +48,7 @@ public class PeriodTest {
         try
         {
             Period pc = new Period(new Time(2014,1,1,12,30),new Time(2014,1,1,12,00));
-            fail();
+            fail("End time before begin time");
         }
         catch(IllegalArgumentException e)
         {
@@ -61,10 +61,10 @@ public class PeriodTest {
     {
         Period testPeriod = new Period(period.getBeginTime(),period.getEndTime());
         // Begin time equals to 1-1-2014 12:00
-        assertEquals(testPeriod.getBeginTime(),period.getBeginTime());
+        assertEquals("Begin time is not equal",testPeriod.getBeginTime(), period.getBeginTime());
         
         // End time equals to 1-1-2014 12:30
-        assertEquals(testPeriod.getEndTime(),period.getEndTime());
+        assertEquals("End time is not equal",testPeriod.getEndTime(), period.getEndTime());
     }
     
     @Test
@@ -75,7 +75,7 @@ public class PeriodTest {
         try
         {
             period.setBeginTime(new Time(2014,1,1,13,00));
-            fail();
+            fail("Begin time set after end time");
         } 
         catch(IllegalArgumentException e)
         {
@@ -86,7 +86,7 @@ public class PeriodTest {
         try
         {
             period.setEndTime(new Time(2014,1,1,11,00));
-            fail();
+            fail("End time before begin time");
         } 
         catch(IllegalArgumentException e)
         {
@@ -103,7 +103,7 @@ public class PeriodTest {
         try
         {
             period.changeLengthWith(-60);
-            fail();
+            fail("End time changed to -> before begin time");
         }
         catch(IllegalArgumentException e)
         {
