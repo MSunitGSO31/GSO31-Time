@@ -16,8 +16,8 @@ import java.util.Iterator;
  */
 public class Appointment {
     
-    private String subject;
-    private IPeriod period;
+    private final String subject;
+    private final IPeriod period;
     
     private ArrayList<Contact> contactList;
     
@@ -54,7 +54,8 @@ public class Appointment {
     /**
      * 
      * @param c Contact to add
-     * @return True if contact is added else return false.
+     * @return True if contact is added. Contact cannot be added if he
+     * already has an appointment at that time.
      */
     public boolean addContact(Contact c){
         if(c.addAppointment(this) == true){
