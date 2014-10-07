@@ -6,7 +6,6 @@
 package fontys.time;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -45,7 +44,7 @@ public class Time implements ITime {
             }
         }
 
-        calendar = new GregorianCalendar(y, m, d, h, min);
+        calendar = new GregorianCalendar(y, m - 1, d, h, min);
 
     }
 
@@ -56,7 +55,7 @@ public class Time implements ITime {
 
     @Override
     public int getMonth() {
-        return calendar.get(Calendar.MONTH);
+        return calendar.get(Calendar.MONTH) + 1;
     }
 
     @Override
@@ -78,7 +77,6 @@ public class Time implements ITime {
     public DayInWeek getDayInWeek() {
         DayInWeek diwEnum = null;
         int day = calendar.get(Calendar.DAY_OF_WEEK);
-        System.out.println(day);
 
         
         if(day == 1){
