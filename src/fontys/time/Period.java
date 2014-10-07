@@ -46,7 +46,7 @@ public class Period implements IPeriod {
 
     @Override
     public void setBeginTime(ITime beginTime) {
-        if (ET.difference(beginTime) > 0) {
+        if (ET.compareTo(beginTime) == 1) {
             BT = beginTime;
         } else {
             throw new IllegalArgumentException("Begin time after End Time!");
@@ -55,7 +55,7 @@ public class Period implements IPeriod {
 
     @Override
     public void setEndTime(ITime endTime) {
-        if (BT.difference(endTime) > 0) {
+        if (BT.compareTo(endTime) == -1) {
             ET = endTime;
         } else {
             throw new IllegalArgumentException("Begint time earlier then Begin Time!");
