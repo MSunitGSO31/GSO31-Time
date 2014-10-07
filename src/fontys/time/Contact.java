@@ -10,8 +10,8 @@ import java.util.Iterator;
 
 /**
  *
- * @author  Specification:   Sam
- * @author  Implementation:  Martijn
+ * @author Specification: Sam
+ * @author Implementation: Martijn
  */
 public class Contact {
 
@@ -30,14 +30,25 @@ public class Contact {
      * If there is overlap the appointmet will not be added.
      */
     public boolean addAppointment(Appointment a) {
-        for (Appointment app : appointmentList) {
-            if (!app.equals(a)) {
-                if (appointmentList.add(a)) {
-                    return true;
+        if (appointmentList.isEmpty() == false) {
+            boolean canAdd = true;
+            for (Appointment app : appointmentList) {
+                if (app.getPeriod().intersectionWith(a.getPeriod()) != null) {
+                    canAdd = false;
                 }
             }
+            if(canAdd == true){
+                appointmentList.add(a);
+                return  true;
+            } else {
+                return false;
+            }
         }
-        return false;
+        else
+        {
+            appointmentList.add(a);
+            return true;
+        }
     }
 
     /**
@@ -45,7 +56,7 @@ public class Contact {
      * @param a Appointment to remove
      */
     public void removeAppointment(Appointment a) {
-
+        appointmentList.remove(a);
     }
 
     /**
@@ -53,7 +64,7 @@ public class Contact {
      * @return an interator of appointmentList
      */
     public Iterator<Appointment> appointments() {
-        return null;
+        return appointmentList.iterator();
     }
 
     /**
@@ -61,6 +72,6 @@ public class Contact {
      * @return name of the contact
      */
     public String getName() {
-        return null;
+        return this.name;
     }
 }

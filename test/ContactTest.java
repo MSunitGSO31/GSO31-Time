@@ -24,7 +24,7 @@ public class ContactTest {
 
         //Test creation of Contact object.
         contact = new Contact("Henk");
-        assertEquals("henk", contact.getName());
+        assertEquals("Henk", contact.getName());
     }
 
     @Test
