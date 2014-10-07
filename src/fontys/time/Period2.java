@@ -15,6 +15,12 @@ public class Period2 implements IPeriod {
     private ITime endTime;
     private long duration;
 
+    /**
+     * creation of a Period2 object with begin time and end time
+     *
+     * @param beginTime begin time bt must be earlier than end time et
+     * @param endTime
+     */
     public Period2(ITime beginTime, ITime endTime) {
 
         if (beginTime.compareTo(endTime) == 1) {
