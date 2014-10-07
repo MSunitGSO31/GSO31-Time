@@ -21,7 +21,7 @@ public class Period implements IPeriod {
      * @param et
      */
     public Period(ITime bt, ITime et) {
-        if (bt.getMinutes() < et.getMinutes()) {
+        if (bt.compareTo(et) == -1) {
             this.BT = bt;
             this.ET = et;
         } else {
@@ -78,13 +78,10 @@ public class Period implements IPeriod {
     }
 
     @Override
-    public boolean isPartOf(IPeriod period) 
-    {
+    public boolean isPartOf(IPeriod period) {
         if (BT.compareTo(period.getBeginTime()) == -1 || BT.compareTo(period.getBeginTime()) == 0) {
             return ET.compareTo(period.getEndTime()) == 1;
-        } 
-        else 
-        {
+        } else {
             return false;
         }
     }
@@ -99,10 +96,28 @@ public class Period implements IPeriod {
 
     @Override
     public IPeriod intersectionWith(IPeriod period) {
-        if (period.length() > this.length()) {
-            return period;
+        Period newPeriod = null;
+
+        if (BT.compareTo(period.getBeginTime()) == -1) {
+            if (ET.compareTo(period.getBeginTime()) == 1) {
+                if (ET.compareTo(period.getEndTime()) == 1) {
+                    newPeriod = new Period(period.getBeginTime(), period.getEndTime());
+                } else {
+                    newPeriod = new Period(period.getBeginTime(), ET);
+                }
+
+            }
         }
-        return this;
+        if (period.getBeginTime().compareTo(BT) == -1) {
+            if (period.getEndTime().compareTo(ET) == 1) {
+                if (period.getEndTime().compareTo(BT) == 1) {
+                    newPeriod = new Period(BT, ET);
+                } else {
+                    newPeriod = new Period(BT, period.getEndTime());
+                }
+            }
+        }
+        return newPeriod;
     }
 
 }
