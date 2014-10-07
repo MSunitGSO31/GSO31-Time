@@ -6,16 +6,25 @@
 
 package fontys.time;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
  *
- * @author Sam + Martijn
+ * @author  Specification:   Martijn
+ * @author  Implementation:  Sam
  */
 public class Appointment {
     
+    private String subject;
+    private IPeriod period;
+    
+    private ArrayList<Contact> contactList;
+    
     public Appointment(String subject, IPeriod period){
-        
+        this.subject = subject;
+        this.period = period;
+        contactList = new ArrayList<Contact>();
     }
     
     /**
@@ -23,7 +32,7 @@ public class Appointment {
      * @return String of the subject
      */
     public String getSubject(){
-        throw new UnsupportedOperationException("Not supported yet!");
+        return subject;
     }
     
     /**
@@ -31,7 +40,7 @@ public class Appointment {
      * @return This period
      */
     public IPeriod getPeriod(){
-        throw new UnsupportedOperationException("Not supported yet!");
+        return period;
     }
     
     /**
@@ -39,7 +48,7 @@ public class Appointment {
      * @return Iterator with type: Contact.
      */
     public Iterator<Contact> invitees(){
-        throw new UnsupportedOperationException("Not supported yet!");
+        return contactList.iterator();
     }
     
     /**
@@ -48,7 +57,12 @@ public class Appointment {
      * @return True if contact is added else return false.
      */
     public boolean addContact(Contact c){
-        throw new UnsupportedOperationException("Not supported yet!");
+        if(c.addAppointment(this) == true){
+            contactList.add(c);
+            return true;
+        } else {
+            return false;
+        }
     }
     
     /**
@@ -56,6 +70,14 @@ public class Appointment {
      * @param c Contact to remove
      */
     public void removeContact(Contact c){
-        throw new UnsupportedOperationException("Not supported yet!");
+        ArrayList<Contact> removeContactList = new ArrayList<Contact>();
+        for(Contact contact : contactList){
+            if(contact == c){
+                removeContactList.add(contact);
+            }
+        }
+        for(Contact contact : removeContactList){
+            contactList.remove(contact);
+        }       
     }
 }
