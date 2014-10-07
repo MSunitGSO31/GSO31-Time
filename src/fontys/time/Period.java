@@ -21,7 +21,7 @@ public class Period implements IPeriod{
     */
     public Period(ITime bt, ITime et)
     {
-        if(BT.getMinutes() < ET.getMinutes())
+        if(bt.getMinutes() < et.getMinutes())
         {
             this.BT = bt;
             this.ET = et;
@@ -49,12 +49,26 @@ public class Period implements IPeriod{
 
     @Override
     public void setBeginTime(ITime beginTime) {
+        if(ET.difference(beginTime) > 0)
+        {
         BT = beginTime;
+        }
+        else
+        {
+            throw new IllegalArgumentException("Begin time after End Time!");
+        }
     }
 
     @Override
     public void setEndTime(ITime endTime) {
-        ET = endTime;
+        if(BT.difference(endTime) > 0)
+        {
+            ET = endTime;
+        }
+        else
+        {
+            throw new IllegalArgumentException("Begint time earlier then Begin Time!");
+        }
     }
 
     @Override
@@ -65,7 +79,14 @@ public class Period implements IPeriod{
 
     @Override
     public void changeLengthWith(int minutes) {
-        ET.plus(minutes);
+        if ((minutes + this.length()) > 0)
+        {
+            ET.plus(minutes);
+        }
+        else
+        {
+            throw new IllegalArgumentException("Length became negative!");
+        }
     }
 
     @Override
