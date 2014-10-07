@@ -31,11 +31,11 @@ public class Period2Test {
     @Test
     public void testPeriod() {
         // Check lenght difference of 30 minutes.
-        assertEquals(30, period2.length());
+        assertEquals("Lenght difference isn't 30 minuntes",30, period2.length());
 
         Period2 p = new Period2(new Time(2014, 1, 1, 12, 00), new Time(2014, 1, 1, 12, 40));
         // Union return null
-        assertNull(period2.unionWith(p));
+        assertNull("Period is not null",period2.unionWith(p));
     }
 
     @Test
@@ -43,7 +43,7 @@ public class Period2Test {
         // Begin time is later then end time
         try {
             Period2 pc = new Period2(new Time(2014, 1, 1, 12, 30), new Time(2014, 1, 1, 12, 00));
-            fail();
+            fail("End time before begin time");
         } catch (IllegalArgumentException e) {
 
         }
@@ -53,10 +53,10 @@ public class Period2Test {
     public void getTimeTest() {
         Period2 testPeriod = new Period2(period2.getBeginTime(), period2.getEndTime());
         // Begin time equals to 1-1-2014 12:00
-        assertEquals(testPeriod.getBeginTime(), period2.getBeginTime());
+        assertEquals("Begin time is not equal",testPeriod.getBeginTime(), period2.getBeginTime());
 
         // End time equals to 1-1-2014 12:30
-        assertEquals(testPeriod.getEndTime(), period2.getEndTime());
+        assertEquals("End time is not equal",testPeriod.getEndTime(), period2.getEndTime());
     }
 
     @Test
@@ -65,7 +65,7 @@ public class Period2Test {
         // Set begin time after end time. 
         try {
             period2.setBeginTime(new Time(2014, 1, 1, 13, 00));
-            fail();
+            fail("Begin time set after end time");
         } catch (IllegalArgumentException e) {
             e.getMessage();
         }
@@ -73,7 +73,7 @@ public class Period2Test {
         // Set end time before begin time.
         try {
             period2.setEndTime(new Time(2014, 1, 1, 11, 00));
-            fail();
+            fail("End time before begin time");
         } catch (IllegalArgumentException e) {
             e.getMessage();
         }
@@ -86,7 +86,7 @@ public class Period2Test {
 
         try {
             period2.changeLengthWith(-60);
-            fail();
+            fail("End time changed to -> before begin time");
         } catch (IllegalArgumentException e) {
 
         }
