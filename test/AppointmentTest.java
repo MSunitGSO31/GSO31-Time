@@ -32,15 +32,15 @@ public class AppointmentTest {
     public void appTest()
     {
         // Check if subject equals to "SubjectTest"
-        assertEquals("SubjectTest",app.getSubject());
+        assertEquals("Subject is not set or received correctly", "SubjectTest",app.getSubject());
         
         // Check if period p equals to current period.
-        assertEquals(p,app.getPeriod());
+        assertEquals("Period is not set or received correctly", p,app.getPeriod());
         
         Contact c = new Contact("TestContact");
         
         // Succesfully add a contact with name: TestContact
-        assertTrue(app.addContact(c));
+        assertTrue("Adding contact doesn't work correctly", app.addContact(c));
         
         // Remove existing contact added to appointment
         app.removeContact(c);

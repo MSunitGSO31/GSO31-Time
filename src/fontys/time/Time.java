@@ -16,6 +16,15 @@ public class Time implements ITime {
 
     public GregorianCalendar calendar;
 
+    /**
+     * creation of a Time-object with year y, month m, day d, hours h and minutes m; if the combination of y-m-d refers to a non-existing date a correct value of this Time-object will be not guaranteed
+     *
+     * @param y
+     * @param m 1≤m≤12
+     * @param d 1≤d≤31
+     * @param h 0≤h≤23
+     * @param min 0≤min≤59
+     */
     public Time(int y, int m, int d, int h, int min) {
 
         if ((m < 1) || (m > 12)) {
@@ -72,28 +81,27 @@ public class Time implements ITime {
     public int getMinutes() {
         return calendar.get(Calendar.MINUTE);
     }
-    
+
     @Override
     public DayInWeek getDayInWeek() {
         DayInWeek diwEnum = null;
         int day = calendar.get(Calendar.DAY_OF_WEEK);
 
-        
-        if(day == 1){
+        if (day == 1) {
             diwEnum = DayInWeek.SUN;
-        } else if (day == 2){
+        } else if (day == 2) {
             diwEnum = DayInWeek.MON;
-        } else if (day == 3){
+        } else if (day == 3) {
             diwEnum = DayInWeek.TUE;
-        } else if (day == 4){
+        } else if (day == 4) {
             diwEnum = DayInWeek.WED;
-        } else if (day == 5){
+        } else if (day == 5) {
             diwEnum = DayInWeek.THU;
-        } else if (day == 6){
+        } else if (day == 6) {
             diwEnum = DayInWeek.FRI;
-        } else if (day == 7){
+        } else if (day == 7) {
             diwEnum = DayInWeek.SAT;
-        } 
+        }
         return diwEnum;
     }
 
@@ -128,6 +136,10 @@ public class Time implements ITime {
         }
     }
 
+    /**
+     * 
+     * @return the calendar of this Time object
+     */
     public GregorianCalendar getCalendar() {
         return calendar;
     }
