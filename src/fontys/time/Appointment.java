@@ -78,6 +78,7 @@ public class Appointment {
             throw new NullPointerException("Contact list is empty");
         }
         
+        
         for(Contact contact : contactList){
             if(contact == c){
                 removeContactList.add(contact);
