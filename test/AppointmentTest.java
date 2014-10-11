@@ -45,6 +45,25 @@ public class AppointmentTest {
         // Remove existing contact added to appointment
         app.removeContact(c);
         
+        // Check if contact is removed and can be added again.
+        assertTrue(app.addContact(c));
+        
+    }
+    
+    @Test
+    public void removeTest()
+    {
+        Contact c2 = new Contact("FailContact");
+        // Remove fails if contact doesn't exist.
+        try
+        {
+            app.removeContact(c2);
+            fail("Contact exists!");
+        }
+        catch(IllegalArgumentException e)
+        {
+            
+        }
     }
     
     

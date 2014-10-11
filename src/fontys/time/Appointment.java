@@ -67,11 +67,17 @@ public class Appointment {
     }
     
     /**
-     * Removes contact
+     * Removes contact and checks if contact exists.
      * @param c Contact to remove
      */
     public void removeContact(Contact c){
         ArrayList<Contact> removeContactList = new ArrayList<Contact>();
+        
+        if(contactList == null)
+        {
+            throw new NullPointerException("Contact list is empty");
+        }
+        
         for(Contact contact : contactList){
             if(contact == c){
                 removeContactList.add(contact);
