@@ -72,18 +72,20 @@ public class Appointment {
      */
     public void removeContact(Contact c){
         ArrayList<Contact> removeContactList = new ArrayList<Contact>();
-        
-        if(contactList == null)
-        {
-            throw new NullPointerException("Contact list is empty");
-        }
-        
+       
+        boolean contactInList = false;
         
         for(Contact contact : contactList){
             if(contact == c){
                 removeContactList.add(contact);
+                contactInList = true;
             }
         }
+        
+        if(contactInList == false){
+            throw new IllegalArgumentException("Contact does not exist");
+        }
+        
         for(Contact contact : removeContactList){
             contactList.remove(contact);
         }       
