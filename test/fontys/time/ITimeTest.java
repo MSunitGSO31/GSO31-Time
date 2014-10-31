@@ -1,3 +1,5 @@
+package fontys.time;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -42,7 +44,7 @@ public class ITimeTest {
 
         time.plus(1510);
 
-        assertEquals("Plus method is not working correctly", time.getCalendar().getTime().getTime(), time2.getCalendar().getTime().getTime());
+        assertEquals("Plus method is not working correctly", 0, time.compareTo(time2));
 
         //Test "difference" method
         time = new Time(2014, 9, 30, 10, 0);
@@ -69,7 +71,7 @@ public class ITimeTest {
     public void testConstructorSimpleErrors() {
         //Check 1 ≤ m ≤ 12
         try {
-            time = new Time(2014, 14, 20, 10, 0);
+            time = new Time(2014, -2, 20, 10, 0);
             fail("Able to submit a non existing Month (Month < 1)");
         } catch (IllegalArgumentException e) {
         }

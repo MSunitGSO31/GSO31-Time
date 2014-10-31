@@ -12,7 +12,6 @@ package fontys.time;
 public class Period2 implements IPeriod {
 
     private ITime beginTime;
-    private ITime endTime;
     private long duration;
 
     /**
@@ -28,7 +27,6 @@ public class Period2 implements IPeriod {
         }
 
         this.beginTime = beginTime;
-        this.endTime = endTime;
 
         duration = beginTime.difference(endTime);
     }
@@ -40,7 +38,7 @@ public class Period2 implements IPeriod {
 
     @Override
     public ITime getEndTime() {
-        return endTime;
+        return beginTime.plus((int)duration);
     }
 
     @Override
@@ -50,7 +48,7 @@ public class Period2 implements IPeriod {
 
     @Override
     public void setBeginTime(ITime newBeginTime) {
-        if (endTime.compareTo(newBeginTime) == 1) {
+        if ((beginTime.plus((int)duration)).compareTo(newBeginTime) == 1) {
             beginTime = newBeginTime;
         } else {
             throw new IllegalArgumentException("Begin time after End Time!");
@@ -60,8 +58,7 @@ public class Period2 implements IPeriod {
     @Override
     public void setEndTime(ITime newEndTime) {
         if (beginTime.compareTo(newEndTime) == -1) {
-            endTime = newEndTime;
-            duration = beginTime.difference(endTime);
+            duration = beginTime.difference(newEndTime);
         } else {
             throw new IllegalArgumentException("Begin time after End Time!");
         }
@@ -70,13 +67,11 @@ public class Period2 implements IPeriod {
     @Override
     public void move(int minutes) {
         beginTime.plus(minutes);
-        endTime.plus(minutes);
     }
 
     @Override
     public void changeLengthWith(int minutes) {
         if ((minutes + this.length()) > 0) {
-            endTime.plus(minutes);
             duration += minutes;
         } else {
             throw new IllegalArgumentException("Length became negative!");

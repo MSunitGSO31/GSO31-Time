@@ -1,3 +1,5 @@
+package fontys.time;
+
 
 import fontys.time.Period2;
 import fontys.time.Time;
