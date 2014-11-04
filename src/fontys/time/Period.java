@@ -11,8 +11,8 @@ package fontys.time;
  */
 public class Period implements IPeriod {
 
-    ITime BT;
-    ITime ET;
+    private ITime bt;
+    private ITime et;
 
     /**
      * creation of a period with begin time bt and end time et
@@ -22,8 +22,8 @@ public class Period implements IPeriod {
      */
     public Period(ITime bt, ITime et) {
         if (bt.compareTo(et) == -1) {
-            this.BT = bt;
-            this.ET = et;
+            this.bt = bt;
+            this.et = et;
         } else {
             throw new IllegalArgumentException("Begint time is equal or bigger then End time");
         }
@@ -31,23 +31,23 @@ public class Period implements IPeriod {
 
     @Override
     public ITime getBeginTime() {
-        return BT;
+        return bt;
     }
 
     @Override
     public ITime getEndTime() {
-        return ET;
+        return et;
     }
 
     @Override
     public int length() {
-        return ET.getMinutes() - BT.getMinutes();
+        return bt.difference(et);
     }
 
     @Override
     public void setBeginTime(ITime beginTime) {
-        if (ET.compareTo(beginTime) == 1) {
-            BT = beginTime;
+        if (et.compareTo(beginTime) == 1) {
+            bt = beginTime;
         } else {
             throw new IllegalArgumentException("Begin time after End Time!");
         }
@@ -55,8 +55,8 @@ public class Period implements IPeriod {
 
     @Override
     public void setEndTime(ITime endTime) {
-        if (BT.compareTo(endTime) == -1) {
-            ET = endTime;
+        if (bt.compareTo(endTime) == -1) {
+            et = endTime;
         } else {
             throw new IllegalArgumentException("Begint time earlier then Begin Time!");
         }
@@ -64,14 +64,14 @@ public class Period implements IPeriod {
 
     @Override
     public void move(int minutes) {
-        ET.plus(minutes);
-        BT.plus(minutes);
+        et.plus(minutes);
+        bt.plus(minutes);
     }
 
     @Override
     public void changeLengthWith(int minutes) {
         if ((minutes + this.length()) > 0) {
-            ET.plus(minutes);
+            et.plus(minutes);
         } else {
             throw new IllegalArgumentException("Length became negative!");
         }
@@ -79,8 +79,8 @@ public class Period implements IPeriod {
 
     @Override
     public boolean isPartOf(IPeriod period) {
-        if (BT.compareTo(period.getBeginTime()) == -1 || BT.compareTo(period.getBeginTime()) == 0) {
-            return ET.compareTo(period.getEndTime()) == 1;
+        if (bt.compareTo(period.getBeginTime()) == -1 || bt.compareTo(period.getBeginTime()) == 0) {
+            return et.compareTo(period.getEndTime()) == 1;
         } else {
             return false;
         }
@@ -98,22 +98,22 @@ public class Period implements IPeriod {
     public IPeriod intersectionWith(IPeriod period) {
         Period newPeriod = null;
 
-        if (BT.compareTo(period.getBeginTime()) == -1) {
-            if (ET.compareTo(period.getBeginTime()) == 1) {
-                if (ET.compareTo(period.getEndTime()) == 1) {
+        if (bt.compareTo(period.getBeginTime()) == -1) {
+            if (et.compareTo(period.getBeginTime()) == 1) {
+                if (et.compareTo(period.getEndTime()) == 1) {
                     newPeriod = new Period(period.getBeginTime(), period.getEndTime());
                 } else {
-                    newPeriod = new Period(period.getBeginTime(), ET);
+                    newPeriod = new Period(period.getBeginTime(), et);
                 }
 
             }
         }
-        if (period.getBeginTime().compareTo(BT) == -1) {
-            if (period.getEndTime().compareTo(ET) == 1) {
-                if (period.getEndTime().compareTo(BT) == 1) {
-                    newPeriod = new Period(BT, ET);
+        if (period.getBeginTime().compareTo(bt) == -1) {
+            if (period.getEndTime().compareTo(et) == 1) {
+                if (period.getEndTime().compareTo(bt) == 1) {
+                    newPeriod = new Period(bt, et);
                 } else {
-                    newPeriod = new Period(BT, period.getEndTime());
+                    newPeriod = new Period(bt, period.getEndTime());
                 }
             }
         }

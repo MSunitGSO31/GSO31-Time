@@ -29,7 +29,7 @@ public class Contact {
      * @return true if add is succesfull. Test for overlap between appointments.
      * If there is overlap the appointmet will not be added.
      */
-    public boolean addAppointment(Appointment a) {
+    protected boolean addAppointment(Appointment a) {
         if (appointmentList.isEmpty() == false) {
             boolean canAdd = true;
             for (Appointment app : appointmentList) {
@@ -55,7 +55,7 @@ public class Contact {
      *
      * @param a Appointment to remove
      */
-    public void removeAppointment(Appointment a) {
+    protected void removeAppointment(Appointment a) {
         appointmentList.remove(a);
     }
 

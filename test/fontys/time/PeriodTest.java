@@ -35,7 +35,7 @@ public class PeriodTest {
     public void testPeriod()
     {
         // Check lenght difference of 30 minutes.
-        assertEquals("Lenght difference isn't 30 minuntes",30, period.length());
+        assertEquals("Lenght difference isn't 30 minutes",30, period.length());
         
         
         Period p = new Period(new Time(2014,1,1,12,00),new Time(2014,1,1,12,40));
