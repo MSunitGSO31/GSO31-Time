@@ -21,8 +21,8 @@ import org.junit.Test;
  */
 public class ITimeTest {
 
-    private Time time;
-    private Time time2;
+    private ITime time;
+    private ITime time2;
 
     public ITimeTest() {
     }
